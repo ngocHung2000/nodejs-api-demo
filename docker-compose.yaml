@@ -1,0 +1,38 @@
+version: '3.8'
+
+networks:
+  api-nodejs:
+    driver: bridge
+
+services:
+  nodejs-app:
+    image: ngochung1809/nodejs-app:v1
+    container_name: nodejs-app
+    ports:
+      - 3000:3000
+    environment:
+      DB_HOST: db
+      DB_USERNAME: root
+      DB_PASSWD: Ngochung1809!
+      DB_NAME: nodejs
+    tty: true
+    networks:
+      - api-nodejs
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mysql:8.0
+    container_name: db-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Ngochung1809!
+      MYSQL_DATABASE: nodejs
+    tty: true
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/initdb.sql
+    networks:
+      - api-nodejs
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "db"]
+      timeout: 20s
+      retries: 10
