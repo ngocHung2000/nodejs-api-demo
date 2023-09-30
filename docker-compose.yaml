@@ -16,6 +16,7 @@ services:
       DB_PASSWD: Ngochung1809!
       DB_NAME: nodejs
     tty: true
+    restart: always
     networks:
       - api-nodejs
     depends_on:
