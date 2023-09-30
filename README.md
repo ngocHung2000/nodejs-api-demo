@@ -1,3 +1,7 @@
+### Run app
+```
+docker compose -f docker-compose.yaml up 
+```
 ### Test API
 - GET
 ```shell
@@ -18,7 +22,7 @@ curl -X GET http://localhost:3000/tasks/1
 
 - PUT
 ```shell
-curl -X PUT http://localhost:3000/tasks/1 \
+curl -X PUT http://localhost:3000/tasks/1
 -H "Content-Type: application/json" \
 -d '{"task": "Deploy App Update", "status": "0"}'
 ```
